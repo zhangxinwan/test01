@@ -208,3 +208,13 @@ sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed
  * Debugger is active!
  * Debugger PIN: 108-279-848
 127.0.0.1 - - [03/Feb/2026 02:33:39] "GET / HTTP/1.1" 200 -
+ * Detected change in '/workspaces/test01/app.py', reloading
+ * Restarting with stat
+Traceback (most recent call last):
+  File "/workspaces/test01/app.py", line 82, in <module>
+    app = create_app()
+          ^^^^^^^^^^^^
+  File "/workspaces/test01/app.py", line 17, in create_app
+    @app.before_first_request
+     ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Flask' object has no attribute 'before_first_request'. Did you mean: '_got_first_request'?
