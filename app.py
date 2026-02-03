@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from models import db, User
 from sqlalchemy.exc import IntegrityError
 
@@ -13,11 +13,6 @@ def create_app(config: dict | None = None) -> Flask:
         app.config.update(config)
 
     db.init_app(app)
-
-    @app.before_first_request
-    def init_db():
-        with app.app_context():
-            db.create_all()
 
 
     @app.route('/users', methods=['GET'])
@@ -75,9 +70,15 @@ def create_app(config: dict | None = None) -> Flask:
     def index():
         return jsonify({'message': '用户管理系统: 使用 /users 进行操作'})
 
+    @app.route('/ui')
+    def ui():
+        return render_template('index.html')
+
     return app
 
 
 if __name__ == '__main__':
     app = create_app()
+    with app.app_context():
+        db.create_all()
     app.run(host='0.0.0.0', port=5000, debug=True)
