@@ -6,8 +6,13 @@ async function listUsers() {
   users.forEach(u => {
     const li = document.createElement('li');
     li.className = 'list-group-item d-flex justify-content-between align-items-center';
-    li.innerHTML = `<div><strong>${u.name}</strong><br><small>${u.email}</small></div>`;
+    li.innerHTML = `<div><a href="/ui/users/${u.id}"><strong>${u.name}</strong></a><br><small>${u.email}</small></div>`;
     const btns = document.createElement('div');
+
+    const edit = document.createElement('button');
+    edit.className = 'btn btn-sm btn-outline-secondary';
+    edit.textContent = '编辑';
+    edit.onclick = () => { window.location.href = `/ui/users/${u.id}` };
 
     const del = document.createElement('button');
     del.className = 'btn btn-sm btn-outline-danger ms-2';
@@ -18,6 +23,7 @@ async function listUsers() {
       listUsers();
     };
 
+    btns.appendChild(edit);
     btns.appendChild(del);
     li.appendChild(btns);
     list.appendChild(li);
